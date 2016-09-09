@@ -1,0 +1,77 @@
+p { margin: 0;}
+
+body {
+	padding-left: 20px;
+	color: rgb(48, 57, 66);
+}
+
+h1 {
+	font-size: 27px;
+}
+
+h1>img {
+	margin-right: 10px;
+}
+
+body header, .opt-group {
+	width: 700px;
+}
+
+input[type='checkbox'] {
+    top: -2px;
+}
+
+:-webkit-any(button, input[type='button'], input[type='submit']):not(.custom-appearance) {
+    white-space: nowrap;
+}
+
+.opt-group {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 10px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.opt-title {
+	flex-basis: auto;
+	width: 150px;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.opt-settings {
+	flex-grow: 1;
+}
+
+.setting {
+    height: 30px;
+}
+
+span.checkbox-text {
+    margin-left: 10px;
+}
+
+.opt-buttons {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.opt-buttons button {
+	cursor: pointer;
+}
+
+#save-settings {
+	margin-top: 20px;
+}
+
+#save-settings p {
+	float: left;
+}
+
+#save-settings button { 
+	float: right;
+	margin-bottom: 10px;
+	cursor: pointer;
+}

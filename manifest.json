@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+
+  "name": "DevLinks",
+  "description": "This extension shows a Google Image search result for the current page",
+  "version": "1.0",
+
+  "icons": {
+    "16": "assets/images/icon16_b.png",
+    "19": "assets/images/icon19_b.png",
+    "32": "assets/images/icon32_b.png",
+    "48": "assets/images/icon48_b.png",
+    "128": "assets/images/icon128_b.png"
+  },
+
+  "background": {
+    "scripts": ["app/background/background.js"]
+  },
+
+  "options_ui": {
+    "page": "app/options/options.html",
+    "chrome_style": true
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "19": "assets/images/icon19_b.png",
+      "38": "assets/images/icon38_b.png"
+    },
+    "default_popup": "app/action/action.html"
+  },
+
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "http://*/",
+    "storage"
+  ]
+}
