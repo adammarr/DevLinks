@@ -1,12 +1,4 @@
-var defaults = {
-		general: JSON.stringify({
-			omnibox: true,
-			bookmarks: false,
-			debugging: false
-		}),
-		configurations: JSON.stringify([])
-	},
-	general, configurations;
+var options = {}, fileInput, urlContainer, loadCancel;
 
 function log(text) {
 	var node = document.createElement('p');
@@ -15,25 +7,23 @@ function log(text) {
 }
 
 function setOptions(options) {
+	log(JSON.stringify(options));
 	var i;
-	general = (options.general) ? JSON.parse(options.general) : JSON.parse(defaults.general);
-	configurations = (options.configurations) ? JSON.parse(options.configurations) : JSON.parse(defaults.configurations);
-
-	for(i in general) {
-		document.getElementById(i).checked = general[i];
+	options = options;
+	for(i in options.general) {
+		document.getElementById(i).checked = options.general[i];
 	}
 }
 
 function saveSettings() {
 	document.querySelectorAll('#general input[type="checkbox"]').forEach(function(el) {
-		general[el.id] = el.checked || false;
+		options.general[el.id] = el.checked || false;
 		log(el.id + ' ' + el.checked);
 	});
 
-	chrome.storage.local.set({
-		general: JSON.stringify(general),
-		configurations: JSON.stringify(configurations)
-	}, function() {
+	options.configurations = [];
+
+	chrome.runtime.sendMessage({ type: 'setSettings', options: options }, function() {
 		// Update status to let user know options were saved.
 		var status = document.getElementById('save-status');
 		status.textContent = 'Options Saved.';
@@ -43,14 +33,58 @@ function saveSettings() {
 	});
 }
 
+function showFile() {
+	fileInput.className = '';
+	urlContainer.className = 'hide';
+	loadCancel.className = '';
+}
+
+function showURL() {
+	fileInput.className = 'hide';
+	urlContainer.className = '';
+	loadCancel.className = '';
+}
+
+function hideSelect() {
+	fileInput.className = 'hide';
+	urlContainer.className = 'hide';
+	loadCancel.className = 'hide';
+}
+
+function fileResponse(response) {
+
+}
+
+function fileSelect(evt) {
+	log(evt.target); log(evt.target.files); log(evt.target.files.length);
+	var files = evt.target.files;
+	log(files[0].type);
+	for (var i in files) {
+		log(i + ' : ' + files[i]);
+	}
+	chrome.runtime.sendMessage({ type: 'loadFile', files: evt.target.files }, fileResponse);
+}
+
 function setEvents() {
+	//buttons
 	document.getElementById('apply').addEventListener('click', saveSettings);
+	document.getElementById('load-file').addEventListener('click', showFile);
+	document.getElementById('load-url').addEventListener('click', showURL);
+	loadCancel.addEventListener('click', hideSelect);
+
+	//inputs
+	document.getElementById('file').addEventListener('change', fileSelect);
+}
+
+function setElements() {
+	fileInput = document.getElementById('file');
+	urlContainer = document.getElementById('url-container');
+	loadCancel = document.getElementById('load-cancel');
 }
 
 function runPage() {
-	//dev stuff will often vary by machine, and some config files may exceed the
-	//sync quota, so lets only store locally
-	chrome.storage.local.get(defaults, setOptions);
+	chrome.runtime.sendMessage({ type: 'getSettings' }, setOptions);
+	setElements();
 	setEvents();
 }
 

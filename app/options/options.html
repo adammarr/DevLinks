@@ -30,6 +30,12 @@
 				<div id="no-config">
 					<p>There are currently no configurations present</p>
 					<div class="opt-buttons">
+						<input type="file" id="file" name="file" class="hide"/>
+						<span id="url-container" class="hide">
+							<input type="text" id="url" name="url">
+							<button type="button" id="url-button">Load</button>
+						</span>
+						<button type="button" id="load-cancel" class="hide">Cancel</button>
 						<button type="button" id="load-file">Load From a File</button>
 						<button type="button" id="load-url">Load From a URL</button>
 					</div>
