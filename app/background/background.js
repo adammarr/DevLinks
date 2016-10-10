@@ -45,8 +45,8 @@ function setSettings(request, sender, sendResponse) {
 
 function loadFile(request, sender, sendResponse) {
 	console.log(request);
-	for (var i = 0, f; f = request.files[i]; i++) {
-		console.log(f.type);
+	for (var i in request.files) {
+		console.log(i + ' : ' + request.files[i].type, request.files[i]);
 	}
 	sendResponse();
 }

@@ -22,6 +22,10 @@ input[type='checkbox'] {
     top: -2px;
 }
 
+input[type="text"] {
+    padding-bottom: 3px;
+}
+
 :-webkit-any(button, input[type='button'], input[type='submit']):not(.custom-appearance) {
     white-space: nowrap;
 }

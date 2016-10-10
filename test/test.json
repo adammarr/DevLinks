@@ -1,0 +1,16 @@
+{
+	"spec": "1",
+	"version": "1.0",
+	"name": "Test Configuration",
+	"description": "Links for Test Configuration",
+
+	"templates": {
+		"templateA" : {
+			
+		}
+	}
+
+	"configuration": {
+
+	}
+}
